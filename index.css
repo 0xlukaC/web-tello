@@ -1,0 +1,46 @@
+body {
+    margin-top: 2.5vw;
+    background: #2C2F38;
+    margin-left: 3%;
+}
+
+nav {
+
+    display: flex;
+    justify-content: flex-start;
+    gap: 5%;
+}
+
+#circles {
+    display: flex;
+    gap: 20%;
+}
+
+/* */
+#center {
+    display: flex;
+    position: relative;
+    margin-top: 5%;
+    margin-left: 5%;
+    /* gap: 5%; */
+}
+
+#vid {
+    display: flex;
+    justify-content: flex-start;
+    width: 50vw;
+    height: 25vw;
+    background-color: #4B4F58;
+    border-radius: 0.933vw;
+    justify-content: flex-start;
+}
+
+#vitals {
+    display: flex;
+    justify-content: flex-end;
+    width: 20vw;
+    height: 25vw;
+    background-color: #4B4F58;
+    border-radius: 0.933vw;
+    justify-content: flex-end;
+}
