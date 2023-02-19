@@ -1,24 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
-    <title>Tello</title>
-</head>
-<body>
-    <nav>
-        <img src="./cee842f19dde1561650754528f49d6b5 1.svg" alt="DJI" id="logo" >
-        <div id="circles">
-            <img src="./Ellipse.svg">
-            <img src="./Circle.svg" alt="">
-        </div>
-    </nav>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./index.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Tello</title>
+	</head>
+	<body>
+		<nav>
+			<img
+				src="./cee842f19dde1561650754528f49d6b5 1.svg"
+				alt="DJI"
+				id="logo"
+			/>
+			<div id="circles">
+				<img src="./Ellipse.svg" />
+				<img src="./Circle.svg" alt="" />
+			</div>
+		</nav>
 
-    <div id="center">
-        <div id="vid"></div>
-        <div id="vitals"></div>
-    </div>
-</body>
+		<div id="center">
+			<div id="vid"></div>
+			<div id="vitals"></div>
+			<div id="controls">
+				<div id="WASD">
+					<kbd style="/*bottom: 2em; */bottom: 6.3vw;left: 15.5vw;"
+						>W</kbd
+					>
+					<kbd style="">A</kbd>
+					<kbd style="">S</kbd>
+					<kbd style="">D</kbd>
+				</div>
+				<div id="panel">
+					<div id="emergancy-btn">
+						<h3>Emergancy Landing</h3>
+					</div>
+					<div class="control-btns">
+						<img src="./fly.svg" alt="takeoff" />
+					</div>
+					<div class="control-btns">
+						<img src="./land.svg" alt="land" />
+					</div>
+				</div>
+				<div id="IJKL">
+					<kbd style="">I</kbd>
+					<kbd>J</kbd>
+					<kbd>K</kbd>
+					<kbd>L</kbd>
+				</div>
+			</div>
+			<div id="map"></div>
+		</div>
+	</body>
 </html>
