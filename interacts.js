@@ -10,7 +10,7 @@ document.addEventListener("keydown", (event) => {
 		}
 	}
 });
-
+ 
 document.addEventListener("keyup", (event) => {
 	for (let i = 0; i < keys.length; i++) {
 		if (event.key.toUpperCase() == keys[i].innerHTML) keys[i].style = "";
