@@ -11,6 +11,7 @@
 			href="https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap"
 			rel="stylesheet"
 		/>
+		<script src="./interacts.js" defer></script>
 		<title>Tello</title>
 	</head>
 	<body>
@@ -27,7 +28,10 @@
 		</nav>
 
 		<div id="center">
-			<div id="vid"></div>
+			<div id="vid">
+				<div class="options"></div>
+				<div class="options"></div>
+			</div>
 			<div id="vitals"></div>
 			<div id="controls">
 				<div id="WASD">
@@ -37,13 +41,13 @@
 					<kbd>D</kbd>
 				</div>
 				<div id="panel">
-					<div id="emergancy-btn">
+					<div id="emergancy-btn" onclick="button(this)">
 						<h3>Emergancy Landing</h3>
 					</div>
-					<div class="control-btns">
+					<div class="control-btns" onclick="button(this)">
 						<img src="./fly.svg" alt="takeoff" />
 					</div>
-					<div class="control-btns">
+					<div class="control-btns" onclick="button(this)">
 						<img src="./land.svg" alt="land" />
 					</div>
 				</div>
