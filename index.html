@@ -29,10 +29,79 @@
 
 		<div id="center">
 			<div id="vid">
-				<div class="options"></div>
-				<div class="options"></div>
+				<div id="option-container">
+					<div
+						class="options"
+						onclick="switcher(this)"
+						data-other="1"
+					>
+						video
+					</div>
+					<div
+						class="options"
+						onclick="switcher(this)"
+						data-other="0"
+					>
+						photo
+					</div>
+				</div>
 			</div>
-			<div id="vitals"></div>
+			<div id="vitals">
+				<div id="zero">
+					<div id="speed">
+						<span class="category">Speed</span
+						><span class="desc">0</span>
+					</div>
+					<div id="height">
+						<span class="category">height</span
+						><span class="desc">0 m</span>
+					</div>
+					<div id="acceleration">
+						<span class="category">acceleration</span
+						><span class="desc">0 m/s</span>
+					</div>
+					<div id="attitude">
+						<span class="category">attitude</span
+						><span class="desc">0</span>
+					</div>
+				</div>
+
+				<div id="one">
+					<div id="temp">
+						<span class="category">temp</span
+						><span class="desc">0 C</span>
+					</div>
+					<div id="baro">
+						<span class="category">baro</span
+						><span class="desc">0</span>
+					</div>
+					<div id="battery">
+						<span class="category">battery</span
+						><span class="desc">0</span>
+					</div>
+					<div id="time">
+						<span class="category">time</span
+						><span class="desc">0</span>
+					</div>
+				</div>
+
+				<div id="two">
+					<div id="wifi">
+						<span class="category">wifi</span
+						><span class="desc">ssid</span>
+					</div>
+				</div>
+				<!-- 
+				speed
+				battery
+				time
+				height
+				temp
+				baro
+				wifi
+				acceleration
+				attitude -->
+			</div>
 			<div id="controls">
 				<div id="WASD">
 					<kbd style="/*bottom: 4.8vw; left: 11vw*/">W</kbd>
