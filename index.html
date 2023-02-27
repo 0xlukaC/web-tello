@@ -33,6 +33,7 @@
 					<div
 						class="options"
 						onclick="switcher(this)"
+						id="0"
 						data-other="1"
 					>
 						video
@@ -40,12 +41,33 @@
 					<div
 						class="options"
 						onclick="switcher(this)"
+						id="1"
 						data-other="0"
 					>
 						photo
 					</div>
 				</div>
-				<img src="./Group 7.svg" id="record" alt="" />
+
+				<svg
+					src="./record.svg"
+					onclick="capture(this)"
+					id="record"
+					alt=""
+					width="70"
+					height="70"
+					viewBox="0 0 70 70"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<circle
+						cx="35"
+						cy="35"
+						r="30.5"
+						stroke="#e1e1e1c7"
+						stroke-width="9"
+					/>
+					<circle id="inner" cx="35" cy="35" r="19" fill="#F7DF1E" />
+				</svg>
 			</div>
 			<div id="vitals">
 				<div id="zero">
