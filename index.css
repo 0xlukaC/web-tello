@@ -40,7 +40,6 @@ nav {
 	border-radius: 0.933vw;
 }
 
-
 #option-container {
 	display: flex;
 	margin-top: 1%;
@@ -51,15 +50,21 @@ nav {
 .options {
 	padding: 1% 7%;
 	border-radius: 0.933vw;
-	font-family: 'inter';
+	font-family: "inter";
 	background-color: rgb(151 151 151 / 73%);
 	/* rgba(43, 43, 43, 0.73) */
 	font-weight: bold;
 	color: yellow;
 }
 
-#vitals {
+#record {
+	width: 10%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
 
+#vitals {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
@@ -68,29 +73,20 @@ nav {
 	background-color: #4b4f58;
 	border-radius: 0.933vw;
 	color: white;
-	font-family: 'inter';
-
-	/* margin-left: 10%; */
+	font-family: "inter";
+	font-size: 1.2vw;
 }
 
-#vitals>div {
+#vitals > div > div {
 	margin-left: 5%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr;
 }
-
-#vitals>div>div {}
 
 .category {
 	font-weight: 800;
 }
-
-.desc {}
-
-
-
-
-
-
-
 
 #controls {
 	display: flex;
