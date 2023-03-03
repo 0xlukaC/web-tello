@@ -4,26 +4,22 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="./index.css" />
+		<link rel="stylesheet" href="./styles/index.css" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="./interacts.js" defer></script>
+		<script src="./scripts/interacts.js" defer></script>
 		<title>Tello</title>
 	</head>
 	<body>
 		<nav>
-			<img
-				src="./cee842f19dde1561650754528f49d6b5 1.svg"
-				alt="DJI"
-				id="logo"
-			/>
+			<img src="./images/logo.svg" alt="DJI" id="logo" />
 			<div id="circles">
-				<img src="./Ellipse.svg" />
-				<img src="./Circle.svg" alt="" />
+				<img src="./images/Ellipse.svg" />
+				<img src="./images/Circle.svg" alt="" />
 			</div>
 		</nav>
 
@@ -49,7 +45,7 @@
 				</div>
 
 				<svg
-					src="./record.svg"
+					src="./images/record.svg"
 					onclick="capture(this)"
 					id="record"
 					alt=""
@@ -127,7 +123,7 @@
 			</div>
 			<div id="controls">
 				<div id="WASD">
-					<kbd style="/*bottom: 4.8vw; left: 11vw*/">W</kbd>
+					<kbd>W</kbd>
 					<kbd>A</kbd>
 					<kbd>S</kbd>
 					<kbd>D</kbd>
@@ -137,14 +133,14 @@
 						<h3>Emergancy Landing</h3>
 					</div>
 					<div class="control-btns" onclick="button(this)">
-						<img src="./fly.svg" alt="takeoff" />
+						<img src="./images/fly.svg" alt="takeoff" />
 					</div>
 					<div class="control-btns" onclick="button(this)">
-						<img src="./land.svg" alt="land" />
+						<img src="./images/land.svg" alt="land" />
 					</div>
 				</div>
 				<div id="IJKL">
-					<kbd style="/*bottom: 4.8vw; left: 10.3vw*/">I</kbd>
+					<kbd>I</kbd>
 					<kbd>J</kbd>
 					<kbd>K</kbd>
 					<kbd>L</kbd>
