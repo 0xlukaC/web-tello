@@ -5,16 +5,14 @@ const webport = 3000;
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-// app.get("/", (req, res) => {
-// 	console.log("here");
-// 	res.render("index");
-// 	// res.send("hi");
-// });
-
-//dont use the res.send only use for testing
+app.get("/", (req, res) => {
+	console.log("here");
+	res.render("index");
+	// res.send("hi");
+});
 
 app.listen(webport);
-//ejs epress
+
 const dgram = require("dgram");
 const host = "192.168.10.1";
 const port = "8889";
