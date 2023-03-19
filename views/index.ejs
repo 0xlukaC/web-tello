@@ -11,6 +11,7 @@
 			href="https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap"
 			rel="stylesheet"
 		/>
+		<script src="/scripts/jsmpeg.min.js"></script>
 		<script src="/scripts/interacts.js" defer></script>
 		<title>Tello</title>
 	</head>
@@ -43,7 +44,12 @@
 						photo
 					</div>
 				</div>
-
+				<canvas id="video-canvas"></canvas>
+				<script>
+					let canvas = document.getElementById('video-canvas');
+					let url = 'ws://'+document.location.hostname+':3001/stream';
+					let player = new JSMpeg.Player(url, {canvas: canvas});
+				</script>
 				<svg
 					src="/images/record.svg"
 					onclick="capture(this)"

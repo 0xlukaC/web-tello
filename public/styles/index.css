@@ -30,7 +30,7 @@ nav {
 }
 
 #vid {
-	background-image: url(../images/test.jpg);
+	background-image: url(ws://'+document.location.hostname+':3001/stream); /* ../images/test.jpg */
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;

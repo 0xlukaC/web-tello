@@ -5,8 +5,7 @@ const webport = 3000;
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-	console.log("here");
+app.get("/", (req, res) => {;
 	res.render("index");
 	// res.send("hi");
 });
@@ -42,29 +41,82 @@ client.bind(port);
 // Receive Tello Video Stream
 
 const video = dgram.createSocket("udp4");
-const videoPort = 1111; //may have to change to number
-const videoServer = "0.0.0.0";
+const http = require('http');
+const WebSocket = require('ws');
+// const videoPort = 11111;
+// const videoServer = "0.0.0.0";
+const STREAM_PORT = 3001
+const spawn = require('child_process').spawn;
 
-video.on("listening", () => {
-	let clientAddress = video.address();
-	console.log(`VIDEO is A OK ${clientAddress.address}:${clientAddress.port}`);
+// video.on("listening", () => {
+// 	let clientAddress = video.address();
+// 	console.log(`VIDEO is A OK ${clientAddress.address}:${clientAddress.port}`);
+// });
+
+// video.on("error", (err) => {
+// 	console.log("there is a error", err);
+// });	
+// // video.bind(videoServer, videoPort);
+// video.bind({
+// 	port: videoPort,
+// 	address: videoServer
+// });
+
+
+  // 2. Create the stream server where the video stream will be sent
+
+const streamServer = http.createServer(function(request, response) {
+
+  // Log that a stream connection has come through
+  console.log(
+	`stream connection on ${STREAM_PORT} from: ${request.socket.remoteAddress}:${request.socket.remotePort}`
+	);
+  // Data from stream (FFmpeg) goes to web socket
+  request.on('data', data => {
+    //  pass data to web socket server
+    webSocketServer.broadcast(data);
+  });
+
+}).listen(STREAM_PORT); // Listen for streams on port 3001
+
+
+ // 3. Begin web socket server
+
+const webSocketServer = new WebSocket.Server({
+  server: streamServer
 });
 
-video.on("message", (msg, rinfo) => {
-	// console.log(`Video message: ${msg}`);
-	console.log("hello");
-	console.log(msg);
-});
+// Broadcast the stream via websocket to connected clients
+webSocketServer.broadcast = data => {
+  webSocketServer.clients.forEach(function each(client) {
+    if (client.readyState == WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
 
-video.on("error", (err) => {
-	console.log("there is a error", err);
-});
 
-// video.bind(videoServer, videoPort);
-video.bind({
-	port: videoPort,
-	address: videoServer
-});
+
+setTimeout(function() {
+  let args = [
+    "-i", "udp://0.0.0.0:11111",
+    "-r", "30",
+    "-s", "960x720",
+    "-codec:v", "mpeg1video",
+    "-b", "800k",
+    "-f", "mpegts",
+    "http://127.0.0.1:3001/stream"
+  ];
+
+  // Spawn an ffmpeg instance
+  let streamer = spawn('ffmpeg', args);
+  // Uncomment for ffmpeg stream info
+  //streamer.stderr.pipe(process.stderr);
+  streamer.on("exit", code => {
+      console.log("error/exit", code);
+  });
+}, 3000);
+
 // Recieve state
 
 // function parseState(state) {
@@ -117,6 +169,7 @@ function closeApp() {
 	process.exit(0);
 }
 
-process.on("uncaughtException", () => {
+process.on("uncaughtException", (err) => {
+	console.log(err)
 	client.close();
 });
