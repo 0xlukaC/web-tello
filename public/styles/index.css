@@ -1,3 +1,8 @@
+@font-face {
+	font-family: "inter";
+	src: URL("public/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+}
+/* public/Inter-VariableFont_slnt,wght.ttf */
 body {
 	margin-top: 2.5vw;
 	background: #2c2f38;
@@ -30,16 +35,21 @@ nav {
 }
 
 #vid {
-	background-image: url(ws://'+document.location.hostname+':3001/stream); /* ../images/test.jpg */
+	/* background-image: url(); /* ../images/test.jpg 
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: center; */
 	width: 55vw;
 	height: 25vw;
 	/* background-color: #4b4f58; */
 	border-radius: 0.933vw;
 }
 
+canvas {
+	position: relative;
+	width: 55vw;
+	height: 25vw;
+}
 
 #option-container {
 	display: flex;
