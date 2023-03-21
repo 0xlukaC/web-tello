@@ -1,7 +1,27 @@
+let ws = new WebSocket("ws://localhost:3002");
+
+ws.addEventListener("open", (event) => {
+	console.log("WebSocket connection established browser");
+});
+
+ws.addEventListener("error", (event) => {
+	console.error("WebSocket error:", event);
+});
+
+ws.addEventListener("message", (event) => {
+	console.log(event.data);
+});
+
+// end of websocket
+
+//
+
 let keys = document.getElementsByTagName("kbd");
 document.addEventListener("keydown", (event) => {
 	for (let i = 0; i < keys.length; i++) {
 		if (keys[i].innerHTML == event.key.toUpperCase()) {
+			ws.send(event.key.toUpperCase());
+			console.log(event.key.toUpperCase());
 			keys[i].style =
 				"background-color: #303236; border: solid 3px #44474c; border-bottom-color: #44474c; border-radius: 0.933vw; box-shadow: inset 0 -3px 0 #303236;";
 		}
@@ -15,6 +35,8 @@ document.addEventListener("keyup", (event) => {
 });
 
 function button(element) {
+	console.log(element.id);
+	ws.send(element.id);
 	element.style.backgroundColor = "#303236";
 	setTimeout(() => {
 		element.style.backgroundColor = "";

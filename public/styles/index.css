@@ -1,7 +1,8 @@
 @font-face {
-	font-family: "inter";
-	src: URL("public/Inter-VariableFont_slnt,wght.ttf") format("truetype");
+	font-family: 'inter';
+	src: URL("../Inter-VariableFont_slnt,wght.ttf") format("truetype");
 }
+
 /* public/Inter-VariableFont_slnt,wght.ttf */
 body {
 	margin-top: 2.5vw;
@@ -14,6 +15,7 @@ nav {
 	display: flex;
 	justify-content: flex-start;
 	gap: 5%;
+
 }
 
 #circles {
@@ -41,21 +43,25 @@ nav {
 	background-position: center; */
 	width: 55vw;
 	height: 25vw;
-	/* background-color: #4b4f58; */
+	background-color: #4b4f58;
 	border-radius: 0.933vw;
 }
 
 canvas {
-	position: relative;
+	border-radius: 0.933vw;
+	position: absolute;
 	width: 55vw;
 	height: 25vw;
 }
 
 #option-container {
+	position: absolute;
+	width: 55vw;
 	display: flex;
 	margin-top: 1%;
 	justify-content: center;
 	gap: 5%;
+	z-index: 1;
 }
 
 .options {
@@ -89,7 +95,7 @@ canvas {
 	font-size: 1.2vw;
 }
 
-#vitals > div > div {
+#vitals>div>div {
 	margin-left: 5%;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -97,7 +103,7 @@ canvas {
 }
 
 .category {
-	font-weight: 800;
+	font-weight: 500;
 }
 
 #controls {
@@ -152,7 +158,7 @@ canvas {
 
 kbd {
 	padding: 2vw;
-	font-size: 1.5vw;
+	font-size: 1.3vw;
 	border: solid 3px #44474c;
 	box-shadow: inset 0 -3px 0 #3a3a3a;
 

@@ -7,10 +7,10 @@
 		<link rel="stylesheet" href="./styles/index.css" defer />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
+		<!-- <link
 			href="https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap"
 			rel="stylesheet"
-		/>
+		/> -->
 		<script src="/scripts/jsmpeg.min.js"></script>
 		<script src="/scripts/interacts.js" defer></script>
 		<title>Tello</title>
@@ -46,9 +46,10 @@
 				</div>
 				<canvas id="video-canvas"></canvas>
 				<script>
-					let canvas = document.getElementById('video-canvas');
-					let url = 'ws://'+document.location.hostname+':3001/stream';
-					let player = new JSMpeg.Player(url, {canvas: canvas});
+					let canvas = document.getElementById("video-canvas");
+					let url =
+						"ws://" + document.location.hostname + ":3001/stream";
+					let player = new JSMpeg.Player(url, { canvas: canvas });
 				</script>
 				<svg
 					src="/images/record.svg"
@@ -138,10 +139,10 @@
 					<div id="emergancy-btn" onclick="button(this)">
 						<h3>Emergancy Landing</h3>
 					</div>
-					<div class="control-btns" onclick="button(this)">
+					<div class="control-btns" id="fly" onclick="button(this)">
 						<img src="/images/fly.svg" alt="takeoff" />
 					</div>
-					<div class="control-btns" onclick="button(this)">
+					<div class="control-btns" id="land" onclick="button(this)">
 						<img src="/images/land.svg" alt="land" />
 					</div>
 				</div>
@@ -154,5 +155,6 @@
 			</div>
 			<div id="map"></div>
 		</div>
+	
 	</body>
 </html>

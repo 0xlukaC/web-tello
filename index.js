@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 
 app.listen(webport);
 
-//start of tello connection
+// start of tello connection
 
 const dgram = require("dgram");
 const host = "192.168.10.1";
@@ -38,43 +38,95 @@ client.on("listening", () => {
 });
 client.bind(port);
 
-// Receive Tello Video Stream
+// Receive Tello Video Stream and State
 
 const http = require("http");
 const WebSocket = require("ws");
-const STREAM_PORT = 3001;
-const spawn = require("child_process").spawn;
+const STREAMPORT = 3001; // this is the port that ffmpeg streams on
+const spawn = require("child_process").spawn; //creates a instance of ffmpeg
+const STATEPORT = 8890;
+const throttle = require("lodash/throttle");
 
-// video.on("listening", () => {
-// 	let clientAddress = video.address();
-// 	console.log(`VIDEO is A OK ${clientAddress.address}:${clientAddress.port}`);
-// });
+// Recieve state
+const droneState = dgram.createSocket("udp4");
+droneState.on("listening", () => console.log("Listening for state"));
+droneState.on("error", (err) =>
+	console.log("there is a error with the state", err)
+);
 
-// video.on("error", (err) => {
-// 	console.log("there is a error", err);
-// });
-// // video.bind(videoServer, videoPort);
-// video.bind({
-// 	port: videoPort,
-// 	address: videoServer
-// });
+function parseState(msg) {
+	return msg
+		.split(";")
+		.map((x) => x.split(":"))
+		.reduce((data, [key, value]) => {
+			data[key] = value;
+			return data;
+		}, {}); // no idea what is going on here
+}
 
-// 2. Create the stream server where the video stream will be sent
+// Web socket to connect to front end
+
+const wss = new WebSocket.Server({ port: 3002 });
+let active = false;
+
+wss.on("connection", (ws) => {
+	active = true;
+	console.log("WebSocket connection established");
+
+	ws.on("message", (data, isBinary) => {
+		let msg = data.toString();
+		console.log(msg);
+		if ((msg = "W")) messanger("up 20");
+		else if ((msg = "A")) messanger("ccw 15");
+		else if ((msg = "S")) messanger("down 20");
+		else if ((msg = "D")) messanger("cc 15");
+		else if ((msg = "I")) messanger("forward 20");
+		else if ((msg = "J")) messanger("left 20");
+		else if ((msg = "K")) messanger("back 20");
+		else if ((msg = "L")) messanger("right 20");
+		else if ((msg = "land")) messanger("land");
+		else if ((msg = "fly")) messanger("takeoff");
+		else if ((msg = "emergancy-btn")) messanger("emergancy");
+	});
+
+	droneState.on(
+		"message",
+		throttle((msg) => {
+			if (active) {
+				const formattedState = JSON.stringify(
+					parseState(msg.toString())
+				);
+				ws.send(formattedState);
+			}
+		}, 500)
+	);
+
+	ws.send("test");
+});
+
+droneState.bind(STATEPORT, "0.0.0.0");
+//
+
+//
+
+//
+
+// Create the stream server where the video stream will be sent
 
 const streamServer = http
-	.createServer(function (request, response) {
+	.createServer(function (req, res) {
 		// Log that a stream connection has come through
 		console.log(
-			`stream connection on ${STREAM_PORT} from: ${request.socket.remoteAddress}:${request.socket.remotePort}`
+			`stream connection on ${STREAMPORT} from: ${req.socket.remoteAddress}:${req.socket.remotePort}`
 		);
 		// Data from stream (FFmpeg) goes to web socket
-		request.on("data", (data) => {
+		req.on("data", (data) => {
 			webSocketServer.broadcast(data);
 		});
 	})
-	.listen(STREAM_PORT); // Listen for streams on port 3001
+	.listen(STREAMPORT); // Listen for streams on port 3001
 
-// 3. Begin web socket server
+// Begin web socket server
 
 const webSocketServer = new WebSocket.Server({
 	server: streamServer
@@ -96,7 +148,7 @@ setTimeout(function () {
 		"-r",
 		"30",
 		"-s",
-		"1056x480",
+		"960x720",
 		"-codec:v",
 		"mpeg1video",
 		"-b",
@@ -109,26 +161,11 @@ setTimeout(function () {
 	// Spawn an ffmpeg instance
 	let streamer = spawn("ffmpeg", args);
 	// Uncomment for ffmpeg stream info
-	//streamer.stderr.pipe(process.stderr);
+	// streamer.stderr.pipe(process.stderr);
 	streamer.on("exit", (code) => {
-		console.log("error/exit", code);
+		console.log("exit code", code);
 	});
 }, 3000);
-
-// Recieve state
-
-// function parseState(state) {
-// 	return state
-// 		.split(";")
-// 		.map((x) => x.split(":"))
-// 		.reduce((data, [key, value]) => {
-// 			data[key] = value;
-// 			return data;
-// 		}, {});
-// }
-
-// const droneState = dgram.createSocket("udp4");
-// droneState.bind(8890);
 
 //creates the command line interface
 
