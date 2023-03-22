@@ -101,7 +101,6 @@ wss.on("connection", (ws) => {
 		}, 500)
 	);
 
-	ws.send("test");
 });
 
 droneState.bind(STATEPORT, "0.0.0.0");
