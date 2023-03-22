@@ -1,5 +1,5 @@
 @font-face {
-	font-family: 'inter';
+	font-family: "inter";
 	src: URL("../Inter-VariableFont_slnt,wght.ttf") format("truetype");
 }
 
@@ -15,7 +15,6 @@ nav {
 	display: flex;
 	justify-content: flex-start;
 	gap: 5%;
-
 }
 
 #circles {
@@ -95,7 +94,7 @@ canvas {
 	font-size: 1.2vw;
 }
 
-#vitals>div>div {
+#vitals > div > div {
 	margin-left: 5%;
 	display: grid;
 	grid-template-columns: 1fr 1fr;

@@ -1,13 +1,12 @@
 const express = require("express");
-const app = express();
-const webport = 3000;
+const app = express(); // makes so I dont have to write as much code
+const webport = 3000; // the web port for the website
 
-app.use(express.static("public"));
-app.set("view engine", "ejs");
+app.use(express.static("public")); // uses the public folder for static files
+app.set("view engine", "ejs"); // sets the file that is rendered
 
 app.get("/", (req, res) => {
 	res.render("index");
-	// res.send("hi");
 });
 
 app.listen(webport);
@@ -15,7 +14,7 @@ app.listen(webport);
 // start of tello connection
 
 const dgram = require("dgram");
-const host = "192.168.10.1";
+const host = "192.168.10.1"; // ip of drone
 
 // Send Command & Receive Response
 const port = "8889";
@@ -36,7 +35,7 @@ client.on("listening", () => {
 		`listening for command on ${clientAddress.address}:${clientAddress.port}`
 	);
 });
-client.bind(port);
+client.bind(port); // connects the socket to the port
 
 // Receive Tello Video Stream and State
 
@@ -54,14 +53,15 @@ droneState.on("error", (err) =>
 	console.log("there is a error with the state", err)
 );
 
+//makes the message readable
 function parseState(msg) {
 	return msg
 		.split(";")
 		.map((x) => x.split(":"))
 		.reduce((data, [key, value]) => {
 			data[key] = value;
-			return data;
-		}, {}); // no idea what is going on here
+			return data; // converts an array of key-value pairs into a object by iterating over each element and assigning each kv pair
+		}, {});
 }
 
 // Web socket to connect to front end
@@ -160,8 +160,6 @@ setTimeout(function () {
 
 	// Spawn an ffmpeg instance
 	let streamer = spawn("ffmpeg", args);
-	// Uncomment for ffmpeg stream info
-	// streamer.stderr.pipe(process.stderr);
 	streamer.on("exit", (code) => {
 		console.log("exit code", code);
 	});
@@ -175,6 +173,7 @@ const rl = readlinePackage.createInterface({
 	input: process.stdin,
 	output: process.stdout
 });
+// rl allows you to send commands via commandline
 
 //relays input
 rl.on("line", (line) => {
@@ -193,8 +192,6 @@ function messanger(msg) {
 		}
 	});
 }
-// messanger("command");
-// messanger("streamon");
 
 //closes the CLI and stops the program
 function closeApp() {

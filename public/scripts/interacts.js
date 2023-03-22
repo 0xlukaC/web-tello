@@ -1,4 +1,4 @@
-let ws = new WebSocket("ws://localhost:3002");
+let ws = new WebSocket("ws://localhost:3002"); // connects to the websocket on 3002
 
 ws.addEventListener("open", (event) => {
 	console.log("WebSocket connection established browser");
@@ -10,7 +10,19 @@ ws.addEventListener("error", (event) => {
 
 ws.addEventListener("message", (event) => {
 	console.log(event.data);
+	if (typeof event == "object") {
+	}
 });
+
+// speed;
+// battery;
+// time;
+// height;
+// temp;
+// baro;
+// wifi;
+// acceleration;
+// attitude;
 
 // end of websocket
 
@@ -18,6 +30,7 @@ ws.addEventListener("message", (event) => {
 
 let keys = document.getElementsByTagName("kbd");
 document.addEventListener("keydown", (event) => {
+	// loops through the keys and identifies which key was pressed then sends it through the udp socket and stylizes the key
 	for (let i = 0; i < keys.length; i++) {
 		if (keys[i].innerHTML == event.key.toUpperCase()) {
 			ws.send(event.key.toUpperCase());
@@ -29,12 +42,14 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("keyup", (event) => {
+	// when the key is let go it updates its style so it looks normal
 	for (let i = 0; i < keys.length; i++) {
 		if (event.key.toUpperCase() == keys[i].innerHTML) keys[i].style = "";
 	}
 });
 
 function button(element) {
+	// sends what button was pressed and updates the style
 	console.log(element.id);
 	ws.send(element.id);
 	element.style.backgroundColor = "#303236";
@@ -46,6 +61,7 @@ function button(element) {
 let options = document.getElementsByClassName("options");
 let currentType = options[1];
 
+//allows toggle between video and photo
 function switcher(element) {
 	element.style.backgroundColor = "rgba(43, 43, 43, 0.73)";
 
