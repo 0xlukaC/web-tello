@@ -76,17 +76,17 @@ wss.on("connection", (ws) => {
 	ws.on("message", (data, isBinary) => {
 		let msg = data.toString();
 		console.log(msg);
-		if ((msg = "W")) messanger("up 20");
-		else if ((msg = "A")) messanger("ccw 15");
-		else if ((msg = "S")) messanger("down 20");
-		else if ((msg = "D")) messanger("cc 15");
-		else if ((msg = "I")) messanger("forward 20");
-		else if ((msg = "J")) messanger("left 20");
-		else if ((msg = "K")) messanger("back 20");
-		else if ((msg = "L")) messanger("right 20");
-		else if ((msg = "land")) messanger("land");
-		else if ((msg = "fly")) messanger("takeoff");
-		else if ((msg = "emergancy-btn")) messanger("emergancy");
+		if ((msg == "W")) messanger("up 50");
+		else if ((msg == "A")) messanger("ccw 30");
+		else if ((msg == "S")) messanger("down 50");
+		else if ((msg == "D")) messanger("cw 30");
+		else if ((msg == "I")) messanger("forward 50");
+		else if ((msg == "J")) messanger("left 50");
+		else if ((msg == "K")) messanger("back 50");
+		else if ((msg == "L")) messanger("right 50");
+		else if ((msg == "land")) messanger("land");
+		else if ((msg == "fly")) messanger("takeoff");
+		else if ((msg == "emergancy-btn")) messanger("emergency");
 	});
 
 	droneState.on(
@@ -183,7 +183,6 @@ rl.on("line", (line) => {
 
 //sends the message
 function messanger(msg) {
-	console.log("ok", msg);
 	const buffer = Buffer.from(msg);
 	client.send(buffer, 0, buffer.length, port, host, (err, bytes) => {
 		if (err) {
@@ -191,6 +190,9 @@ function messanger(msg) {
 		}
 	});
 }
+
+// messanger("command")
+// messanger("takeoff")
 
 //closes the CLI and stops the program
 function closeApp() {

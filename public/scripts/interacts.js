@@ -13,33 +13,26 @@ ws.addEventListener("message", (event) => {
 		title,
 		index
 	}));
-	console.log(obj)
+	console.log(obj);
 
-	document.getElementById("speed").innerHTML = Math.floor((+obj[3].index + +obj[4].index + +obj[5].index) / 3) 
+	document.getElementById("speed").innerHTML = Math.floor(
+		(+obj[3].index + +obj[4].index + +obj[5].index) / 3
+	);
 
-	document.getElementById("acceleration").innerHTML = Math.floor((+obj[13].index + +obj[14].index + +obj[15].index) / 3)
+	document.getElementById("acceleration").innerHTML = Math.floor(
+		(+obj[13].index + +obj[14].index + +obj[15].index) / 3
+	);
 
 	obj.forEach((title, index) => {
 		let element = document.querySelectorAll(
 			`[id=${CSS.escape(title.title)}]`
 		);
-	
+
 		if (element[0]?.id == title.title) {
 			element[0].innerHTML = title.index;
 		}
 	});
 });
-
-// let stats = document.querySelectorAll("desc");
-// const speed = stats[0];
-// const height = stats[1];
-// const acceleration = stats[2];
-// const attitude = stats[3];
-// const temp = stats[4];
-// const baro = stats[5];
-// const battery = stats[6];
-// const time = stats[7];
-// const wifi = stats[8];
 
 // {"pitch":"0","roll":"1","yaw":"0","vgx":"0","vgy":"0","vgz":"0","templ":"43","temph":"45","tof":"10","h":"0","bat":"22","baro":"526.05","time":"0","agx":"-1.00","agy":"-21.00","agz":"-1000.00"}
 
@@ -112,3 +105,4 @@ function resetOpacity() {
 	let inner = element.querySelectorAll("circle")[1];
 	inner.style.opacity = "1";
 }
+
