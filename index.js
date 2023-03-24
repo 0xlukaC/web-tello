@@ -76,17 +76,17 @@ wss.on("connection", (ws) => {
 	ws.on("message", (data, isBinary) => {
 		let msg = data.toString();
 		console.log(msg);
-		if ((msg == "W")) messanger("up 50");
-		else if ((msg == "A")) messanger("ccw 30");
-		else if ((msg == "S")) messanger("down 50");
-		else if ((msg == "D")) messanger("cw 30");
-		else if ((msg == "I")) messanger("forward 50");
-		else if ((msg == "J")) messanger("left 50");
-		else if ((msg == "K")) messanger("back 50");
-		else if ((msg == "L")) messanger("right 50");
-		else if ((msg == "land")) messanger("land");
-		else if ((msg == "fly")) messanger("takeoff");
-		else if ((msg == "emergancy-btn")) messanger("emergency");
+		if (msg == "W") messanger("up 50");
+		else if (msg == "A") messanger("ccw 30");
+		else if (msg == "S") messanger("down 50");
+		else if (msg == "D") messanger("cw 30");
+		else if (msg == "I") messanger("forward 50");
+		else if (msg == "J") messanger("left 50");
+		else if (msg == "K") messanger("back 50");
+		else if (msg == "L") messanger("right 50");
+		else if (msg == "land") messanger("land");
+		else if (msg == "fly") messanger("takeoff");
+		else if (msg == "emergancy-btn") messanger("emergency");
 	});
 
 	droneState.on(
@@ -100,7 +100,6 @@ wss.on("connection", (ws) => {
 			}
 		}, 500)
 	);
-
 });
 
 droneState.bind(STATEPORT, "0.0.0.0");
@@ -151,7 +150,7 @@ setTimeout(function () {
 		"-codec:v",
 		"mpeg1video",
 		"-b",
-		"800k",
+		"800k", //bitrate
 		"-f",
 		"mpegts",
 		"http://127.0.0.1:3001/stream"
@@ -190,9 +189,6 @@ function messanger(msg) {
 		}
 	});
 }
-
-// messanger("command")
-// messanger("takeoff")
 
 //closes the CLI and stops the program
 function closeApp() {

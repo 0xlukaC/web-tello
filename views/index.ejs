@@ -52,19 +52,6 @@
 					let url =
 						"ws://" + document.location.hostname + ":3001/stream";
 					let player = new JSMpeg.Player(url, { canvas: canvas });
-					// let vidsocket = new WebSocket(
-					// 	"ws://" + document.location.hostname + ":3001/stream"
-					// );
-
-					// vidsocket.addEventListener("open", (event) => {
-					// 	setInterval(async () => {
-					// 		const detections = await faceapi.detectAllFaces(
-					// 			canvas,
-					// 			new faceapi.TinyFaceDetectorOptions().withFaceLandmarks()
-					// 		);
-					// 		console.log(detections);
-					// 	}, 100);
-					// });
 				</script>
 				<svg
 					src="/images/record.svg"
@@ -173,15 +160,29 @@
 	</body>
 	<script src="/scripts/face-api.min.js"></script>
 	<script>
-		// console.log(faceapi);
-		// /scripts/face-api.min.js
-		let faceapi = "http://localhost:3000/scripts/face-api.min.js";
+		// // console.log(faceapi);
+		// // /scripts/face-api.min.js
+		// let faceapi = "http://localhost:3000/scripts/face-api.min.js";
 
-		Promise.all([
-			faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-			faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-			faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-			faceapi.nets.faceExpressionNet.loadFromUri("../public/models")
-		]);
+		// Promise.all([
+		// 	faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
+		// 	faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+		// 	faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+		// 	faceapi.nets.faceExpressionNet.loadFromUri("../public/models")
+		// ]);
+
+		// let vidsocket = new WebSocket(
+		// 	"ws://" + document.location.hostname + ":3001/stream"
+		// );
+
+		// vidsocket.addEventListener("open", (event) => {
+		// 	setInterval(async () => {
+		// 		const detections = await faceapi.detectAllFaces(
+		// 			canvas,
+		// 			new faceapi.TinyFaceDetectorOptions().withFaceLandmarks()
+		// 		);
+		// 		console.log(detections);
+		// 	}, 100);
+		// });
 	</script>
 </html>

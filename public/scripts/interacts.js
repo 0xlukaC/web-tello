@@ -17,13 +17,14 @@ ws.addEventListener("message", (event) => {
 
 	document.getElementById("speed").innerHTML = Math.floor(
 		(+obj[3].index + +obj[4].index + +obj[5].index) / 3
-	);
+	); // averages the speed from xyz
 
 	document.getElementById("acceleration").innerHTML = Math.floor(
 		(+obj[13].index + +obj[14].index + +obj[15].index) / 3
-	);
+	);	// averages acceleration from xyz
 
-	obj.forEach((title, index) => {
+	// updates text for every other element
+	obj.forEach((title) => {
 		let element = document.querySelectorAll(
 			`[id=${CSS.escape(title.title)}]`
 		);
