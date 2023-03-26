@@ -13,7 +13,6 @@ ws.addEventListener("message", (event) => {
 		title,
 		index
 	}));
-	console.log(obj);
 
 	document.getElementById("speed").innerHTML = Math.floor(
 		(+obj[3].index + +obj[4].index + +obj[5].index) / 3
@@ -21,7 +20,7 @@ ws.addEventListener("message", (event) => {
 
 	document.getElementById("acceleration").innerHTML = Math.floor(
 		(+obj[13].index + +obj[14].index + +obj[15].index) / 3
-	);	// averages acceleration from xyz
+	); // averages acceleration from xyz
 
 	// updates text for every other element
 	obj.forEach((title) => {
@@ -106,4 +105,3 @@ function resetOpacity() {
 	let inner = element.querySelectorAll("circle")[1];
 	inner.style.opacity = "1";
 }
-

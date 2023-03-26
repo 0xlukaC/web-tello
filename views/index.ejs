@@ -5,19 +5,17 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./styles/index.css" defer />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<!-- <link
 			href="https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap"
 			rel="stylesheet"
 		/> -->
-		<script src="/scripts/jsmpeg.min.js"></script>
-
 		<script src="/scripts/interacts.js" defer></script>
 
 		<title>Tello</title>
 	</head>
 	<body>
+		<script src="/scripts/jsmpeg.min.js"></script>
+
 		<nav>
 			<img src="/images/logo.svg" alt="DJI" id="logo" />
 			<div id="circles">
@@ -52,6 +50,26 @@
 					let url =
 						"ws://" + document.location.hostname + ":3001/stream";
 					let player = new JSMpeg.Player(url, { canvas: canvas });
+					console.log(player);
+
+					let relayWS = new WebSocket("ws://localhost:3003");
+
+					relayWS.onopen = (event) => {
+						setTimeout(() => {
+							console.log(
+								"relayWS connection established browser"
+							);
+							relayWS.send(canvas);
+						}, 100);
+					};
+
+					relayWS.addEventListener("error", (event) => {
+						console.error("relayWS error:", event);
+					});
+
+					relayWS.addEventListener("message", (event) => {
+						console.log(event);
+					});
 				</script>
 				<svg
 					src="/images/record.svg"
@@ -119,16 +137,6 @@
 						><span class="desc" id="tof">0</span>
 					</div>
 				</div>
-				<!-- 
-				speed
-				battery
-				time
-				height
-				temp
-				baro
-				wifi
-				acceleration
-				attitude -->
 			</div>
 			<div id="controls">
 				<div id="WASD">
@@ -158,31 +166,4 @@
 			<div id="map"></div>
 		</div>
 	</body>
-	<script src="/scripts/face-api.min.js"></script>
-	<script>
-		// // console.log(faceapi);
-		// // /scripts/face-api.min.js
-		// let faceapi = "http://localhost:3000/scripts/face-api.min.js";
-
-		// Promise.all([
-		// 	faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-		// 	faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-		// 	faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-		// 	faceapi.nets.faceExpressionNet.loadFromUri("../public/models")
-		// ]);
-
-		// let vidsocket = new WebSocket(
-		// 	"ws://" + document.location.hostname + ":3001/stream"
-		// );
-
-		// vidsocket.addEventListener("open", (event) => {
-		// 	setInterval(async () => {
-		// 		const detections = await faceapi.detectAllFaces(
-		// 			canvas,
-		// 			new faceapi.TinyFaceDetectorOptions().withFaceLandmarks()
-		// 		);
-		// 		console.log(detections);
-		// 	}, 100);
-		// });
-	</script>
 </html>

@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 const app = express(); // makes so I dont have to write as much code
 const webport = 3000; // the web port for the website
 
@@ -13,7 +13,7 @@ app.listen(webport);
 
 // start of tello connection
 
-const dgram = require("dgram");
+import dgram from "dgram";
 const host = "192.168.10.1"; // ip of drone
 
 // Send Command & Receive Response
@@ -39,12 +39,12 @@ client.bind(port); // connects the socket to the port
 
 // Receive Tello Video Stream and State
 
-const http = require("http");
-const WebSocket = require("ws");
+import http from "http";
+import WebSocket, { WebSocketServer } from "ws";
 const STREAMPORT = 3001; // this is the port that ffmpeg streams on
-const spawn = require("child_process").spawn; //creates a instance of ffmpeg
+import { spawn } from "child_process"; //creates a instance of ffmpeg
 const STATEPORT = 8890;
-const throttle = require("lodash/throttle");
+import throttle from "lodash/throttle.js";
 
 // Recieve state
 const droneState = dgram.createSocket("udp4");
@@ -66,7 +66,7 @@ function parseState(msg) {
 
 // Web socket to connect to front end
 
-const wss = new WebSocket.Server({ port: 3002 });
+const wss = new WebSocketServer({ port: 3002 });
 let active = false;
 
 wss.on("connection", (ws) => {
@@ -75,7 +75,7 @@ wss.on("connection", (ws) => {
 
 	ws.on("message", (data, isBinary) => {
 		let msg = data.toString();
-		console.log(msg);
+		console.log(msg, "on 3002");
 		if (msg == "W") messanger("up 50");
 		else if (msg == "A") messanger("ccw 30");
 		else if (msg == "S") messanger("down 50");
@@ -126,14 +126,16 @@ const streamServer = http
 
 // Begin web socket server
 
-const webSocketServer = new WebSocket.Server({
+const webSocketServer = new WebSocketServer({
 	server: streamServer
 });
 
+let opened = false; // updates when the socket is sending
 // Broadcast the stream via websocket to connected clients
 webSocketServer.broadcast = (data) => {
 	webSocketServer.clients.forEach(function each(client) {
 		if (client.readyState == WebSocket.OPEN) {
+			opened = true;
 			client.send(data);
 		}
 	});
@@ -158,15 +160,69 @@ setTimeout(function () {
 
 	// Spawn an ffmpeg instance
 	let streamer = spawn("ffmpeg", args);
+	// runFacemesh();
 	streamer.on("exit", (code) => {
 		console.log("exit code", code);
 	});
 }, 3000);
 
+const relayWS = new WebSocketServer({ port: 3003 });
+
+relayWS.on("connection", function connection(ws) {
+	ws.on("error", console.error);
+	console.log("video relay established");
+
+	ws.on("message", function message(data) {
+		console.log(data);
+		runFacemesh(data);
+	});
+
+	ws.send("something");
+});
+
+// // ai`
+import * as faceDetection from "@tensorflow-models/face-detection";
+// import "@mediapipe/face_mesh";
+// import "@tensorflow/tfjs-core";
+
+const model = faceDetection.SupportedModels.MediaPipeFaceDetector;
+const detectorConfig = {
+	runtime: "mediapipe",
+	solutionPath: "/node_modules/@mediapipe/face_mesh"
+};
+
+const runFacemesh = async (vid) => {
+	console.log("in");
+	detector = await faceDetection.createDetector(model, detectorConfig);
+	const faces = await detector.estimateFaces({ input: vid });
+	console.log(faces);
+};
+// const runFacemesh = async () => {
+// 	// loads the ai model
+// 	const net = await facemesh.load(
+// 		facemesh.SupportedPackages.mediapipeFacemesh
+// 	);
+// 	setInterval(() => {
+// 		detect(net);
+// 	}, 100);
+// };
+
+// // detects the faceimport
+// const detect = async (net) => {
+// 	//check if readystate is open so we can execute
+// 	if (opened) {
+// 		// Make Detections
+// 		const face = await net.estimateFaces({
+// 			input: "http://127.0.0.1:3001/stream"
+// 		});
+// 		console.log(face);
+// 	}
+// };
+
 //creates the command line interface
 
-const readlinePackage = require("readline");
-const { Buffer } = require("node:buffer");
+import readlinePackage from "readline";
+import { Buffer } from "node:buffer";
 const rl = readlinePackage.createInterface({
 	input: process.stdin,
 	output: process.stdout
