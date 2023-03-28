@@ -47,8 +47,7 @@
 				<canvas id="video-canvas"></canvas>
 				<script>
 					let canvas = document.getElementById("video-canvas");
-					let url =
-						"ws://" + document.location.hostname + ":3001/stream";
+					let url = "ws://localhost:3001/stream";
 					let player = new JSMpeg.Player(url, { canvas: canvas });
 					console.log(player);
 
@@ -59,7 +58,9 @@
 							console.log(
 								"relayWS connection established browser"
 							);
-							relayWS.send(canvas);
+							setInterval(() => {
+								relayWS.send(canvas.toDataUrl().slice(22));
+							}, 500);
 						}, 100);
 					};
 

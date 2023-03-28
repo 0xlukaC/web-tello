@@ -173,11 +173,12 @@ relayWS.on("connection", function connection(ws) {
 	console.log("video relay established");
 
 	ws.on("message", function message(data) {
-		console.log(data);
-		runFacemesh(data);
-	});
+		let base64ToString = Buffer.from(data, "base64").toString();
+		base64ToString = JSON.parse(base64ToString);
 
-	ws.send("something");
+		console.log("canvas:", base64ToString);
+		runFacemesh(base64ToString);
+	});
 });
 
 // // ai`
